@@ -1,0 +1,10 @@
+{% extends "mtgdatabase\base.html" %}
+
+{% block title %}MTG Deck Value Tracker -- card{% endblock %}
+
+{% block content %}
+    <img src='{{ card.image }}' />
+    {% if card.back %}
+        <img src='{{ card.back }}' />
+    {% endif %}
+{% endblock %}

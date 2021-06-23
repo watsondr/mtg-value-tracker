@@ -1,0 +1,114 @@
+{% extends "mtgdatabase\base.html" %}
+
+{% load static %}
+
+{% block title %}MTG Deck Value Tracker{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'mtgdatabase/css/mtgdatabase_index.css' %}">
+{% endblock %} 
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'mtgdatabase/javascript/mtgdatabase_deck.js' %}"></script>
+    <script type="text/javascript" src="{% static 'mtgdatabase/javascript/hover_preview.js' %}"></script>
+{% endblock %}
+        
+{% block content %}
+         <div class="d-m-flex flex-center flex-column mb-2 align-items-center">
+         <h1> Here are your available decklists: </h1>
+        {% if latestDeckList %}           
+            {% for deck in latestDeckList %}
+            <div class="p-2">
+                <div class="card btn-no-waves" style="width: 60rem;">
+                <!-- <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap"> -->
+    
+                    <div class="card-body">
+                        <h5 class="card-title"><a href='{% url 'mtgdatabase:deck' deck.id %}'>{{ deck.deck_name }}</a></h5>
+                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <button type="button" class="collapsible btn"><i class="fas fa-bars blue-text"></i> {{ deck.deck_name }} :: {{ deck.deckFormat }} :: ${{ deck.deckValue|floatformat:"2" }}</button>
+                                    
+                                    <div class="deckContent">
+                                        <div class="deckGrid" id=' {{ deck.id }} '>
+                                        <!-- <ul class="deckMenu></ul> -->
+                                        <!-- ul should contain li's that are a href tags which fire off javascript to do useful things like export to excel or Magic Arena -->
+                                            
+                                            <!-- row 1 -->
+                                            <div class="header">
+                                                {% if deck.constructed %}
+                                                    <p>This deck is <strong>built to play</strong></p>
+                                                {% else %}
+                                                    <p>This deck is conceptual</p>
+                                                {% endif %}
+                                            </div>
+                                            
+                                            <!-- row 2 -->
+                                            <!-- column 1-->
+                                            <div class=".col-6 left-content">
+                                                {% if deck.creatureListQuantity > 1 %}
+                                                    <div class="deckGrid-header">Creatures ( {{ deck.creatureListQuantity }} )</div>
+                                                    
+                                                    <div class="deckGrid-row">
+                                                        {% for card, quantity in deck.creatureList %}
+
+                                                        <a rel="popover" title="" data-img="{% static 'mtgdatabase/assets/card-front/'|add:card.image_id %}" href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.id }}{{ card.deck.id}}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                                                       
+                                                        {% endfor %}                    
+                                                   </div> 
+                                                {% endif %}
+                                                
+                                                {% if deck.planeswalkerListQuantity > 1 %}
+                                                    <div class="deckGrid-header">Planeswalkers ( {{ deck.planeswalkerListQuantity }} )</div>
+                                                    
+                                                    <div class="deckGrid-row">
+                                                        {% for card, quantity in deck.planeswalkerList %}
+                            
+                                                        <a href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.image_id }}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                            
+                                                        {% endfor %}                    
+                                                   </div> 
+                                                {% endif %}
+                                           </div>
+                                        
+                                           <!-- column 2 -->
+                                           <div class=".col-6 right-content">
+                                                {% if deck.spellListQuantity > 1 %}
+                                                    <div class="deckGrid-header">Spells ( {{ deck.spellListQuantity }} )</div>
+                                                    
+                                                    <div class="deckGrid-row">
+                                                        {% for card, quantity in deck.spellList %}
+                            
+                                                        <a href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.image_id }}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                            
+                                                        {% endfor %}                    
+                                                   </div> 
+                                                {% endif %}
+                                                
+                                                {% if deck.landListQuantity > 1 %}
+                                                    <div class="deckGrid-header">Lands ( {{ deck.landListQuantity }} )</div>
+                                                    
+                                                    <div class="deckGrid-row">
+                                                        {% for card, quantity in deck.landList %}
+                            
+                                                        <a href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.image_id }}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                            
+                                                        {% endfor %}                    
+                                                   </div> 
+                                                {% endif %}
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="p-2"> No decks to view in database. </div>
+        {% endif %}
+{% endblock %}

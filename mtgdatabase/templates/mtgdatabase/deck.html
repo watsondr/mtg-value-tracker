@@ -1,0 +1,98 @@
+{% extends "mtgdatabase\base.html" %}
+
+{% load static %}
+
+{% block title %}MTG Deck Value Tracker -- {% if deck %} {{ deck.deck_name }} {% endif %} {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'mtgdatabase/css/mtgdatabase_deck.css' %}">
+{% endblock %} 
+
+{% block content %}
+        {% if deck %}
+            <!-- https://www.w3schools.com/howto/howto_js_collapsible.asp -->
+            
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col text-center">
+                            
+                        <div class="deckContent">
+                        <!-- Multiple decks may appear on a page. Find a way to generate id's and uniquely assign before adding any to this area... -->
+                            <div class="deckGrid">
+                            <!-- <ul class="deckMenu></ul> -->
+                            <!-- ul should contain li's that are a href tags which fire off javascript to do useful things like export to excel or Magic Arena -->
+                                
+                                <!-- row 1 -->
+                                <div class="header">
+                                    {% if deck.constructed %}
+                                        <p>This deck is <strong>built to play</strong></p>
+                                    {% else %}
+                                        <p>This deck is conceptual</p>
+                                    {% endif %}
+                                </div>
+                                
+                                <!-- row 2 -->
+                                <!-- column 1-->
+                                <div class=".col-6 left-content">
+                                    {% if creatureListQuantity > 1 %}
+                                        <div class="deckGrid-header">Creatures ( {{ creatureListQuantity }} )</div>
+                                        
+                                        <div class="deckGrid-row">
+                                            {% for card, quantity in creatureList %}
+                
+                                            {{ card.card_name }} x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                
+                                            {% endfor %}                    
+                                       </div> 
+                                    {% endif %}
+                                    
+                                    {% if planeswalkerListQuantity > 1 %}
+                                        <div class="deckGrid-header">Planeswalkers ( {{ planeswalkerListQuantity }} )</div>
+                                        
+                                        <div class="deckGrid-row">
+                                            {% for card, quantity in planeswalkerList %}
+                
+                                            {{ card.card_name }} x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                
+                                            {% endfor %}                    
+                                       </div> 
+                                    {% endif %}
+                               </div>
+                            
+                               <!-- column 2 -->
+                               <div class=".col-6 right-content">
+                                    {% if spellListQuantity > 1 %}
+                                        <div class="deckGrid-header">Spells ( {{ spellListQuantity }} )</div>
+                                        
+                                        <div class="deckGrid-row">
+                                            {% for card, quantity in spellList %}
+                
+                                            {{ card.card_name }} x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                
+                                            {% endfor %}                    
+                                       </div> 
+                                    {% endif %}
+                                    
+                                    {% if landListQuantity > 1 %}
+                                        <div class="deckGrid-header">Lands ( {{ landListQuantity }} )</div>
+                                        
+                                        <div class="deckGrid-row">
+                                            {% for card, quantity in landList %}
+                
+                                            {{ card.card_name }} x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                
+                                            {% endfor %}                    
+                                       </div> 
+                                    {% endif %}
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        {% else %}
+            <p> There is no information to be displayed on this page. </p>
+        {% endif %}
+{% endblock %}

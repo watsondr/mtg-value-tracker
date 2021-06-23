@@ -1,0 +1,65 @@
+* {
+    padding, margin: 0;
+}
+
+.card-title {
+    text-align: center;
+}
+
+.deckContent {
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/*
+
+GRID LAYOUT DEFINED IN HERE
+
+*/
+
+.deckGrid {
+  font-size: .9rem;
+  line-height: 1.5;
+  text-align: left;
+  box-sizing: border-box;
+  display: grid;
+  /* grid-template-columns: repeat(aut-fill, minmax(250px, .8fr)); */
+  grid-template-columns: 1.2fr 1.2fr;
+  grid-template-rows: 50px auto;
+  gap: .5rem;
+  grid-template-areas:
+      "header header"
+      "col1 col2";
+  
+}
+
+.deckGrid-header {
+  font-weight: bold;
+  line-height: 3;
+}
+
+/* common styling for grid columns in deck content */
+[class*="col-"] {
+  padding: 0 1.2rem 1.2rem;
+}
+
+.col-6 {
+  width: 50%;
+}
+
+.header {
+  grid-area: header;
+  margin-top: 20px;
+  height: 50px;
+  text-align: center;
+}
+
+.left-content {
+  grid-area: col1;
+}
+
+.right-content {
+  grid-area: col2;
+ }
