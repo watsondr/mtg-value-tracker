@@ -65,7 +65,7 @@
                                                     <div class="deckGrid-row">
                                                         {% for card, quantity in deck.planeswalkerList %}
                             
-                                                        <a href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.image_id }}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                                                        <a rel="popover" title="" data-img="{% static 'mtgdatabase/assets/card-front/'|add:card.image_id %}" href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.id }}{{ card.deck.id}}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
                             
                                                         {% endfor %}                    
                                                    </div> 
@@ -80,7 +80,7 @@
                                                     <div class="deckGrid-row">
                                                         {% for card, quantity in deck.spellList %}
                             
-                                                        <a href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.image_id }}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                                                        <a rel="popover" title="" data-img="{% static 'mtgdatabase/assets/card-front/'|add:card.image_id %}" href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.id }}{{ card.deck.id}}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
                             
                                                         {% endfor %}                    
                                                    </div> 
@@ -92,7 +92,7 @@
                                                     <div class="deckGrid-row">
                                                         {% for card, quantity in deck.landList %}
                             
-                                                        <a href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.image_id }}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
+                                                        <a rel="popover" title="" data-img="{% static 'mtgdatabase/assets/card-front/'|add:card.image_id %}" href='{% url 'mtgdatabase:card' card.id %}' id='{{ card.id }}{{ card.deck.id}}'>{{ card.card_name }}</a> x {{ quantity }} @ ${{ card.current_price|floatformat:"2" }} ea.<br />
                             
                                                         {% endfor %}                    
                                                    </div> 

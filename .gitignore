@@ -1,2 +1,5 @@
 settings.py
 assets
+forex_retriever.py
+__pycache__
+*.pyc

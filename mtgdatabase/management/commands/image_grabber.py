@@ -39,8 +39,6 @@ class Command(BaseCommand):
         id_regex = re.compile('[\d+]\.jpe?g') 
         file_location = Path(r'D:\Coding\mtg-value-tracker\mtg-value-tracker\mtgdatabase\static\mtgdatabase\assets\card-front')
         
-        card = Card.objects.first()
-        
         # THIS IS CORRECT WAY TO DECLARE FILE LOCATION
         #file_location = os.path.join(file_location, '40.jpg')
         
@@ -54,8 +52,9 @@ class Command(BaseCommand):
 
             def image_function(payload, size):
                 """
-                This function condensces lines of code
+                This function condensces lines of code in case of expansion to front and back of cards
                 """
+
                 image_uris = payload
                 image = requests.get(image_uris[size])
                 image.raise_for_status()
