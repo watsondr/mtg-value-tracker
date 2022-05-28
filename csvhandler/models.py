@@ -14,4 +14,8 @@ class CardImport(models.Model):
         return self.name
     
 #class ExpansionSetImport(modesl.Model):
-    
+
+class DeckImport(models.Model):
+    deck_name_import = models.CharField(max_length=50)
+    deck_format_import = models.CharField(max_length = 3)
+    constructed_import = models.BooleanField(default = False)

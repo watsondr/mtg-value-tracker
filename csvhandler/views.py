@@ -1,9 +1,10 @@
 import csv, io
 from django.shortcuts import render
 from django.contrib import messages
-from mtgdatabase.models import Card, ExpansionSet
+from mtgdatabase.models import Card, Deck
 
-# Create your views here.
+# Create your views here
+# new views should be registered in mtgdatabase/urls.py
 
 """
 Accessed 21st June 2020: https://medium.com/@simathapa111/how-to-upload-a-csv-file-in-django-3a0d6295f624
@@ -25,7 +26,7 @@ Need a model for each mtgdatabase in models.py for csvhandler
 
 def cardimport_upload(request):
     
-    template = "cardImport_upload.html"
+    template = "csvhandler/cardImport_upload.html"
     data = Card.objects.all()
     
     prompt = {
@@ -103,4 +104,37 @@ def cardimport_upload(request):
     context = {}
     return render(request, template, context)
 
+    """
+    
+    """
+    Parameters
+    ----------
+    request : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
+    
+def deckImport_upload(request):
+    data = Deck.objects.all()
+    template = data # change this
+    context = {}
+    return render(request, template, context)
+    
+def genericImport(request, importType, data):
+    """
+    The idea of this view is that by receiving an importType and data,
+    we can route the uplaod request to the correct view to implement into db
+    
+    these are links of interest (04/09/2021):
+        https://stackoverflow.com/posts/59369795/revisions
+        https://docs.djangoproject.com/en/3.0/ref/class-based-views/base/#django.views.generic.base.TemplateView
+    
+    by making a template view we may need to establish a class
+    and then treat the class as a view.
+    
+    Codewise - looks cleaner
     """

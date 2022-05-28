@@ -31,5 +31,5 @@ urlpatterns = [
         # ex: /mtgdatabase/wishlist_deck/#/#/
         path('wishlist_deck/<int:deck_id>/<int:decklist_id>', views.wishlist_deck, name='wish_deck'),
         path('editcard/<int:card_id>', views.edit_card, name='edit_card'),
-        path('upload/', cardimport_upload, name='card upload'),
+        path('upload/cardlist', cardimport_upload, name='card_upload'),
 ] 
